@@ -1,8 +1,10 @@
 # Ciphernet
 
 
-<p align="center"> <img src="https://github.com/stanboii/ciphernet/static/assets2/images/ciphernetlogo" height=200 /> </p>
+<p align="center"> <img src="https://github.com/stanboii/ciphernet/assets/108393479/cfa58799-1f1a-41e3-953b-4c3ff60dcb38" height=100 /> </p>
 <br>
+
+
 
 
 
@@ -14,6 +16,11 @@
 <p align="center">
 <a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangopowered126x54.gif" border="0" alt="Powered by Django." title="Powered by Django." /></a>
 </p>
+
+
+### Modules
+- User
+- Admin
 
 ### Pages
 - Login Page
@@ -33,6 +40,10 @@
 - Saved Post page
 - Report Post page
 - Chat Page
+- Admin Login Page
+- Admin Home Page
+- Admin Usersinfo Page
+- Admin Reports Page
 
 ### Features
 
