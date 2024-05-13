@@ -1,0 +1,138 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<head>
+    <style>
+        
+
+.date {
+    font-size: 11px
+}
+
+.comment-text {
+    font-size: 12px
+}
+
+.fs-12 {
+    font-size: 12px
+}
+
+.shadow-none {
+    box-shadow: none
+}
+
+.name {
+    color: #007bff
+}
+
+.cursor:hover {
+    color: blue
+}
+
+.cursor {
+    cursor: pointer
+}
+
+.textarea {
+    resize: none
+}
+    </style>
+</head>
+    <main class="main-container">
+        <section class="content-container">
+            <div class="contendt">
+
+
+                <div class="posts">
+
+                    <article class="post">
+                        <div class="post__header">
+                            <div class="post__profile">
+                                <a href="{% url 'admin_userprofile' username=post.user.username %}" class="post__avatar">
+                                    <img src="{{ post.user.profile.image.url }}" alt="User Picture">
+                                </a>
+                                <a href="{% url 'admin_userprofile' username=post.user.username %}" class="post__user">@{{ post.user.username }}</a>
+                            </div>
+
+
+                        </div>
+
+                        <div class="post__content">
+                            <div class="post__medias">
+                                {% if post.picture.url|slice:"-4:" == '.mp4' or post.picture.url|slice:"-5:" == '.mkv' %}
+                                <video style="height: 250px; width: 300px;" controls>
+                                     <source src="{{ post.picture.url }}" type="video/mp4">
+                                 </video>
+                                {% elif post.picture.url|slice:"-4:" == '.jpg' or post.picture.url|slice:"-5:" == '.jpeg' or post.picture.url|slice:"-4:" == '.png' %}
+                                <a href="#"><img class="post__media" src="{{ post.picture.url }}" alt="Post Content" style="width:1000%; object-fit: contain;"></a>
+                                {% else %}
+                                <div class="photo">
+                                     <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ post.text }}</h1>
+                                 </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="post__footer">
+                            <div class="post__buttons">
+
+
+                            </div>
+
+                            <div class="post__infos">
+                                <div class="post__likes">
+                                    <a href="#" class="post__likes-avatar"><!--                                        <img src="assets1/default-user.png" alt="User Picture">-->
+                                    </a>
+                                    <span>{{post.likes}} <a class="post__name--underline" href="#">likes</a> <a href="#"></a></span>
+                                </div>
+
+                                <div class="post__description">
+                                    <span>
+                                        <a class="post__name--underline" href="#"><b>@{{post.user.username}}</b></a>
+                                        {{post.caption}}
+
+                                    </span>
+                                </div>
+                                <p style="font-size: 13px;">{% for tag in post.tags.all %}
+                                    <a href="{{ tag.get_absolute_url }}" style="text-decoration: none;">
+                                        #{{ tag }}
+                                    </a>
+                                    {% endfor %}
+                                </p>
+                                <span class="post__date-time">{{post.posted}}</span>
+
+                                <div class="container mt-1">
+                                    <div class="d-flex justify-content-right row">
+                                        <div class="col-md-8 col-lg-8">
+                                            <div class="d-flex flex-column comment-section">
+
+                                                
+                                                {% for comment in comments %}
+                                                    <div class="bg-white p-2">
+                                                        <div class="d-flex flex-row user-info"><img class="rounded-circle" src="{{comment.user.profile.image.url}}" width="30" height="30">
+                                                            <a href="{% url 'admin_userprofile' username=comment.user %}" style="text-decoration: none;">
+                                                            <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">{{comment.user.profile.first_name}} {{comment.user.profile.last_name}}</span><span class="date text-black-50"> {{comment.date}}</span></div></a>
+                                                        </div>
+                                                        <div class="mt-2">
+                                                            <p class="comment-text">{{ comment.body }}</p>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                                
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock content %}

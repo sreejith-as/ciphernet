@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Post</title>
+    <style>
+        /* Centering the box */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        /* Styling the box */
+        .edit-box {
+            width: 400px;
+            padding: 20px;
+            border: 10px solid #3D5F74;
+            border-radius: 20px;
+            background-color: #0d1a22;
+            margin-top: 115px;
+            color: white;
+        }
+        /* Centering the text within the box */
+        .edit-box h1,
+        .edit-box form {
+            text-align: center;
+        }
+        /* Style for the image */
+        .edit-box img {
+            max-width: 100%;
+            height: 400px;
+            display: block;
+            margin: 0 auto 20px; /* Center the image within the box */
+        }
+        /* Style for the labels and input fields */
+        .edit-box label,
+        .edit-box input[type="text"] {
+            display: block;
+            margin-bottom: 10px;
+        }
+        /* Style for the submit button */
+        .edit-box button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="edit-box">
+        <h1>Edit Post</h1>
+        <!-- <a href="{% url 'profile' username=user.username %}">Back to Profile</a> -->
+
+        <form method="POST" action="{% url 'post_edit' post.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if post.picture %}
+            <!-- Display Current Image -->
+            <img src="{{ post.picture.url }}" alt="Current Image">
+
+            <!-- Hidden Field for Post ID (To Keep the Same Post ID) -->
+            <input type="hidden" name="post_id" value="{{ post.id }}">
+
+            <!-- Display Caption and Tags Fields -->
+            <label for="caption">Caption:</label>
+            <input type="text" id="caption" name="caption" value="{{ post.caption }}">
+
+            <label for="tags">Tags:</label>
+            <input type="text" id="tags" name="tags" value="{% for tag in post.tags.all %}{{ tag }},{% endfor %}">
+            {% else %}
+            <label for="text">Text:</label>
+            <input type="text" id="text" name="text" value="{{ post.text }}">
+            {% endif %}
+            <!-- Submit Button -->
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock content %}

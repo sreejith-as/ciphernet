@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://kit.fontawesome.com/fc1e235b2e.js"></script>
+  <link rel="stylesheet" href="{% static 'assets2/style.css' %}">
+  <title>Ciphernet | Login </title>
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <div class="container">
+      <div class="form-data">
+        <form action="" method="POST">{% csrf_token %}
+          <div class="logo">
+            <img src="{% static 'assets2/images/ciphernetlogo.png' %}" alt="logo" class="logo">
+          </div>
+          <!-- <input type="text" placeholder="Phone number, username, or email"> -->
+          <!-- <input type="password" placeholder="Password"> -->
+          {{form}}
+          <button class="form-btn" type="submit">Log in</button>
+          <!-- <a href="index.html" class="form-btn" type="submit">Log in</a> -->
+          <span class="has-separator">Or</span>
+          <a class="password-reset" href="{% url 'password_reset'%}">Forgot password?</a>
+        </form>
+        <div class="sign-up">
+          Don't have an account? <a href="{% url 'sign-up' %}">Sign up</a>
+        </div>
+        </div>
+      </div>
+    </div>
+</body>
+
+</html>

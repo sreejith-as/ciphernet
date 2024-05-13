@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Post</title>
+    <style>
+        /* Styles for post display */
+        .post-box {
+            width: 400px;
+            height: auto;
+            margin: 0 auto;
+            border: 10px solid #3D5F74;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+        .photo img,
+        video {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Report Post</h1>
+
+    {% if post.picture %}
+        {% if post.picture.url|slice:"-4:" == '.mp4' or post.picture.url|slice:"-5:" == '.mkv' %}
+            <div class="post-box">
+                <video style="height: 250px; width: 300px;" controls>
+                    <source src="{{ post.picture.url }}" type="video/mp4">
+                </video>
+            </div>
+        {% elif post.picture.url|slice:"-4:" == '.jpg' or post.picture.url|slice:"-5:" == '.jpeg' or post.picture.url|slice:"-4:" == '.png' %}
+            <div class="post-box">
+                <img src="{{ post.picture.url }}" alt="Reported Post Image">
+            </div>
+        {% else %}
+            <div class="post-box">
+                <h1>{{ post.text }}</h1>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <form action="{% url 'report_post' post.id %}" method="post">
+        {% csrf_token %}
+        <div class="post-box">
+            <input type="text" placeholder="Reason for Report" name="reason">
+            <button type="submit" style="background-color: #0d6efd; color: white; padding: 5px 10px; border: none; border-radius: 20px; cursor: pointer;">Submit</button>
+        </div>
+    </form>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,91 @@
+{% extends 'main.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reported Posts Details</title>
+    <style>
+        .post-box {
+            width: 400px; /* Set a specific width */
+            height: auto; /* Allow height to adjust based on content */
+            margin: 0 auto;
+            border: 10px solid #3D5F74;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center; /* Center align the content */
+            box-sizing: border-box; /* Ensure padding and border are included in the box size */
+        }
+        .post-header {
+            margin-bottom: 10px;
+            color: white;
+        }
+        .post-content {
+            margin-bottom: 10px;
+            font-size: 14px; /* Decrease font size */
+            color: white;
+        }
+        .post-footer {
+            margin-top: 10px;
+            color: white;
+        }
+        .photo img,video {
+            max-width: 100%; /* Ensure media doesn't exceed box width */
+            max-height: 100%; /* Set maximum height for media */
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Reported Posts Details</h1>
+
+    {% if reports %}
+        {% for report in reports reversed %}
+            <div class="post-box">
+                <div class="post-header">
+                    <h2>{{ report.post.user }}</h2>
+                    {% if report.send == False %}
+                        <a href="{% url 'report_send' username=report.post.user %}">Send</a><br>
+                    {% else %}
+                        <a href="#">Sent</a>
+                    {% endif %}
+                </div>
+                <div class="post-content">
+                    {% if report.post.picture %}
+                        {% if report.post.picture.url|slice:"-4:" == '.mp4' or report.post.picture.url|slice:"-5:" == '.webm' %}
+                            <video style="height: 250px; width: 300px;" controls>
+                                <source src="{{ report.post.picture.url }}" type="video/mp4">
+                            </video>
+                        {% elif report.post.picture.url|slice:"-4:" == '.jpg' or report.post.picture.url|slice:"-5:" == '.jpeg' or report.post.picture.url|slice:"-4:" == '.png' %}
+                            <div class="photo">
+                                <a href="{{ report.post.picture.url }}">
+                                    <img src="{{ report.post.picture.url }}" alt="Reported Post Image">
+                                </a>
+                            </div>
+                        {% else %}
+                            <div class="photo">
+                                <h1>{{ report.post.text }}</h1>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <p>No image available for this reported post.</p>
+                    {% endif %}
+                </div>
+                <div class="post-footer">
+                    <p><strong>Reported By:</strong> @{{ report.reported_by.username }}</p>
+                    <p><strong>Reason:</strong> {{ report.reason }}</p>
+                    <p><strong>Send:</strong> {{ report.send }}</p>
+                    <p><strong>Seen:</strong> {{ report.seen }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reported posts found.</p>
+    {% endif %}
+</body>
+</html>
+{% endblock content %}

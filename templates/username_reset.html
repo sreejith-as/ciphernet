@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br><br>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://kit.fontawesome.com/fc1e235b2e.js"></script>
+  <link rel="stylesheet" href="{% static 'assets2/style.css' %}">
+  <title>Reset Username</title>
+</head>
+
+<body>
+
+  <div id="wrapper">
+    <div class="container">
+      <div class="phone-app-ddemo"></div>
+      <div class="form-data">
+        <form method="post">
+          {% csrf_token %}
+          <div class="logo">
+            <h3 style="padding: 20px; font-size: 20px; width: 374px;">Reset Username</h3>
+          </div>
+          {% if messages %}
+          <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+          <label for="new_username">New Username:</label>
+          <input type="text" id="new_username" name="new_username">
+          <button class="form-btn" type="submit">Reset Username</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
+{% endblock content %}
