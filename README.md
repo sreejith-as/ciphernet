@@ -72,10 +72,10 @@ Database: `Sqlite3`
 
 ### Installation
 
-1. - Fork the [repo](https://github.com/pkini2002/Social-media-web-app)
+1. - Fork the [repo](https://github.com/stanboii/ciphernet)
    - Clone the repo to your local system
    ```git
-   git clone https://github.com/pkini2002/Social-media-web-app.git
+   git clone https://github.com/stanboii/ciphernet.git
    cd Social-media-web-app
    ```
    Make sure you have python installed on your system.
