@@ -76,7 +76,6 @@ Database: `Sqlite3`
    - Clone the repo to your local system
    ```git
    git clone https://github.com/stanboii/ciphernet.git
-   cd Social-media-web-app
    ```
    Make sure you have python installed on your system.
 2. Create a Virtual Environment for the Project
@@ -106,11 +105,6 @@ Database: `Sqlite3`
    ```bash
    pip install -r requirements.txt
    ```
-
-    ```bash
-   cd socials
-   ```
-
 
 4. Make migrations/ Create db.sqlite3
 
